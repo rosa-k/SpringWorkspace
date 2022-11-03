@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>실습2</title>
+</head>
+<body>
+<h1>실습2</h1>
+<form action="ex09">
+    숫자<input type="text" name="num">
+    국어<input type="text" name="kor">
+    영어<input type="text" name="eng">
+    수학<input type="text" name="math">
+    <input type="submit" value="전송">
+</form>
+<br>
+<table border="1">
+    <tr>
+        <th>숫자</th>
+        <th>국어</th>
+        <th>영어</th>
+        <th>수학</th>
+        <th>총점</th>
+        <th>평균</th>
+
+    </tr>
+    <tr th:object="${taskVO}">
+        <td th:text="*{num}"></td>
+        <td th:text="*{kor}"></td>
+        <td th:text="*{eng}"></td>
+        <td th:text="*{math}"></td>
+        <td th:text="*{kor+eng+math}"></td>
+        <td th:text="*{(kor+eng+math)/3}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
