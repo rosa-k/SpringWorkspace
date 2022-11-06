@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -67,10 +68,17 @@ public class BoardControllerTest {
     }
 
 //    삭제 테스트
+//    @Test
+//    public void deleteTest() throws Exception{
+//        log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/delete")
+//                .param("boardNumber", String.valueOf(28L)))
+//                .andReturn().getModelAndView().getModelMap().toString());
+//
+//    }
     @Test
-    public void deleteTest() throws Exception{
-        log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/delete")
-                .param("boardNumber", String.valueOf(28L)))
-                .andReturn().getModelAndView().getModelMap().toString());
+    public void deleteTest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/board/delete")
+                .param("boardNumber", "28"))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
     }
 }

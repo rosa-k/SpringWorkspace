@@ -25,11 +25,15 @@ public class BoardController {
 
 //    게시글 등록
     @GetMapping("/write")
-    public void write(){}
+    public void write(Model model){
+        model.addAttribute("board", new BoardVO());
+    }
 
     @PostMapping("/write")
-    public void write(BoardVO boardVO){
+    public RedirectView write(BoardVO boardVO, RedirectAttributes redirectAttributes){
         boardService.add(boardVO);
+        redirectAttributes.addFlashAttribute("boardNumber",boardVO.getBoardNumber());
+        return new RedirectView("list");
     }
 
 //    게시글 수정
@@ -43,7 +47,7 @@ public class BoardController {
     public RedirectView update(BoardVO boardVO, RedirectAttributes redirectAttributes){
         boardService.update(boardVO);
 //        알아서 쿼리스트링을 경로 뒤에 만들어준다(컨트롤러에서 사용할때)
-        redirectAttributes.addAttribute("board", boardVO.getBoardNumber());
+        redirectAttributes.addAttribute("boardNumber", boardVO.getBoardNumber());
 //        화면에서만 사용할때에는 Flash영역을 사용하여 전달해야한다다
 //        rediectAttributes.addFlashAttribute("board", boardVO.getBoardNumber());
 //        controller에서 controller에서 이동 할 때

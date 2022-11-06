@@ -12,7 +12,7 @@
     <artifactId>order</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>order</name>
-    <description>practice</description>
+    <description>practice 11.03</description>
     <properties>
         <java.version>11</java.version>
     </properties>
