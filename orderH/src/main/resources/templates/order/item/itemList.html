@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Board</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="/css/main.css" type="text/css"/>
+    <style>
+        @media (max-width: 918px){
+            .writer {display: none;}
+            .regDate	 {display: none;}
+            .updateDate {display: none;}
+        }
+        .minus{
+            width: 40px !important;
+            height: 40px !important;
+            font-size: 24px;
+            font-weight: normal;
+            padding: 0;
+            vertical-align: middle;
+            line-height: 40px;
+        }
+        .plus{
+            width: 40px !important;
+            height: 40px !important;
+            font-size: 24px;
+            font-weight: normal;
+            padding: 0;
+            vertical-align: middle;
+            line-height: 40px;
+        }
+
+    </style>
+</head>
+<body class="is-preload">
+<!-- Main -->
+<div id="main">
+    <div class="wrapper">
+        <div class="inner">
+
+            <!-- Elements -->
+            <header class="major">
+                <h1>Item</h1>
+                <p>상품 목록</p>
+            </header>
+            <!-- Table -->
+            <h3><a class="write button small">상품 등록</a>
+                &nbsp&nbsp<a class="write button small">주문 하기</a>
+                &nbsp&nbsp<a class="write button small">주문 내역</a>
+                &nbsp&nbsp<a class="write button small">검색 하기</a></h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr class="tHead">
+                        <th class=""><input type="checkbox" id="itemAll"><label for="itemAll" style="margin-bottom: 0">전체선택</label></th>
+                        <th class="bno">번호</th>
+                        <th class="title">상품명</th>
+                        <th class="writer">가격</th>
+                        <th class="regDate">재고</th>
+                        <th class="">수량 선택</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="item:${items}">
+                        <tr class="tBody" th:object="${item}">
+                            <td class=""><input type="checkbox" th:id="*{itemName}" name="itemCheck"><label th:for="*{itemName}" style="margin: 0; top: -20px;"></label></td>
+                            <td class="bno" th:text="*{itemNumber}"></td>
+                            <td class="title"><a class="read" th:text="*{itemName}"></a></td>
+                            <td class="writer" th:text="*{itemPrice}"></td>
+                            <td class="regDate" th:text="*{itemStock}"></td>
+                            <td class="">
+                                <div>
+                                    <button class="minus" type="button" value="-" > - </button>
+                                    <div class="itemCount" style="display: inline-block; padding: 0 10px;"> 0 </div>
+                                    <button class="plus" type="button" value="+" > + </button>
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.dropotron.min.js"></script>
+<script src="/js/browser.min.js"></script>
+<script src="/js/breakpoints.min.js"></script>
+<script src="/js/util.js"></script>
+<script src="/js/main.js"></script>
+<script th:inline="javascript">
+    $minus = $(".minus");
+    $plus = $(".plus");
+
+    $itemCount = $(".itemCount");
+
+    $plus.on("click",function () {
+        console.log("클릭");
+       $(this).siblings($itemCount.innerText)+1;
+    })
+</script>
+</html>

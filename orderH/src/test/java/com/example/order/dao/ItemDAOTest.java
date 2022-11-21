@@ -16,7 +16,7 @@ public class ItemDAOTest {
     @Test
     public void saveTest(){
         ItemVO itemVO =  new ItemVO();
-        itemVO.setItemName("당근");
+        itemVO.setItemName("오이");
         itemVO.setItemPrice(1500);
         itemVO.setItemStock(90);
 

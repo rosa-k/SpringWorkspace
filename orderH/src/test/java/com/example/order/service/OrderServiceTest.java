@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 public class OrderServiceTest {
     @Autowired
-    private OrderSerive orderSerive;
+    private OrderService orderService;
 
     @Test
     public void addOrderTest(){
@@ -30,19 +30,19 @@ public class OrderServiceTest {
         orders.add(order1);
         orders.add(order2);
 
-        orderSerive.addOrder(orders);
+        orderService.addOrder(orders);
     }
 
     @Test
     public void cancelTest(){
         String orderId = "202211039";
-        orderSerive.cancel(orderId);
+        orderService.cancel(orderId);
     }
 
 //    조회 테스트
     @Test
     public void showTest(){
-        orderSerive.show(3L).forEach(order -> {
+        orderService.show(3L).forEach(order -> {
             log.info(order.getOrderId() + ": " + order.getItemName() + ": " + order.getOrderDate() + ": " + order.getOrderPrice());
         });
     }
@@ -50,7 +50,7 @@ public class OrderServiceTest {
 //    전체 조회 테스트
     @Test
     public void showAllTest(){
-        orderSerive.showAll().stream().map(OrderDTO::toString).forEach(log::info);
+        orderService.showAll().stream().map(OrderDTO::toString).forEach(log::info);
     }
 }
 
