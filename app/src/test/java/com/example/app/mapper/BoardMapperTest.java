@@ -29,6 +29,7 @@ public class BoardMapperTest {
         boardVO.setBoardContent("테스트 내용_ro");
         boardVO.setBoardWriter("ro");
         boardMapper.insert(boardVO);
+        log.info("추가된 게시글 번호: " + boardVO.getBoardNumber());
     }
 
     @Test
@@ -39,9 +40,16 @@ public class BoardMapperTest {
         log.info("UPDATE COUNT: " + boardMapper.update(boardVO));
     }
 
+//    @Test
+//    public void deleteTest(){
+//        boardMapper.delete(5L);
+//    }
     @Test
     public void deleteTest(){
-        boardMapper.delete(5L);
+        Long boardNumber = 2L;
+        BoardVO boardVO = boardMapper.select(boardNumber);
+        Assertions.assertNotNull(boardVO);
+        boardMapper.delete(boardNumber);
     }
 
     @Test

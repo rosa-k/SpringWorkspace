@@ -1,5 +1,6 @@
 package com.example.app.controller;
 
+import com.example.app.aspect.annotation.LogStatus;
 import com.example.app.domain.vo.Criteria;
 import com.example.app.domain.vo.ReplyDTO;
 import com.example.app.domain.vo.ReplyVO;
@@ -26,14 +27,15 @@ public class ReplyController {
 //    produces : 콜백 함수로 결과를 전달 할 때의 타입
 //    @RequestBody : 전달 받은 데이터를 알맞는 매개변수로 주입
 //    ResponseEntity : 서버의 상태 코드, 응답 메세지 등을 담을 수 있는 타입
-
+    @LogStatus
     @PostMapping(value = "/new", consumes = "application/json", produces = "text/plain; charset=utf-8")
     public ResponseEntity<String> write(@RequestBody ReplyVO replyVO) throws UnsupportedEncodingException {
         replyService.register(replyVO);
-        return new ResponseEntity<>(new String("create success".getBytes(), "UTF-8"), HttpStatus.OK);
+        return new ResponseEntity<>(new String("write success".getBytes(), "UTF-8"), HttpStatus.OK);
     }
 
 //    특정 게시글의 댓글 전체 조회
+    @LogStatus
     @GetMapping("/list/{bno}/{page}")
     public ReplyDTO list(@PathVariable("bno") Long boardNumber, @PathVariable int page){
         Criteria criteria = new Criteria();
@@ -54,6 +56,7 @@ public class ReplyController {
 //    @PutMapping(value = "/{rno}")
 //    @PostMapping(value = {"/{rno}", "/{rno}/"})
 //    댓글 수정
+    @LogStatus
     @PatchMapping(value = {"/{rno}", "/{rno}/{replier}"})
     public String update(@RequestBody ReplyVO replyVO, @PathVariable("rno") Long replyNumber, @PathVariable(value = "replier", required = false) String replyWriter){
         replyVO.setReplyNumber(replyNumber);
@@ -63,21 +66,24 @@ public class ReplyController {
     }
 
 //    댓글 삭제
-    @DeleteMapping("/{rno}")
-    public String delete(@PathVariable("rno") Long replyNumber){
+    @LogStatus
+    @DeleteMapping("/{replyNumber}")
+    public String delete(@PathVariable Long replyNumber){
         replyService.remove(replyNumber);
         return "remove success";
     }
 
 //    특정 게시글에 작성된 댓글 개수
-    @PostMapping("/{bno}")
-    public int getTotal(@PathVariable("bno") Long boardNumber){
+    @LogStatus
+    @PostMapping("/{boardNumber}")
+    public int getTotal(@PathVariable Long boardNumber){
         return replyService.getTotal(boardNumber);
     }
 
 //    댓글 1개 조회
-    @GetMapping("/{rno}")
-    public ReplyVO show(@PathVariable("rno") Long replyNumber){
+    @LogStatus
+    @GetMapping("/{replyNumber}")
+    public ReplyVO show(@PathVariable Long replyNumber){
         return replyService.show(replyNumber);
     }
 

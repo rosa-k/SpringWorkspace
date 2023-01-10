@@ -54,9 +54,13 @@ public class OrderDAOTest {
         orderDAO.deleteById("202211036");
     }
 
+//    @Test
+//    public void findByItemNumberTest(){
+//        log.info("전체 감자 판매 개수 : " + orderDAO.findByItemNumber(1L).stream().map(order -> order.getItemCount()).reduce(0, (count1, count2) -> count1 + count2));
+//    }
     @Test
     public void findByItemNumberTest(){
-        log.info("전체 감자 판매 개수 : " + orderDAO.findByItemNumber(1L).stream().map(order -> order.getItemCount()).reduce(0, (count1, count2) -> count1 + count2));
+        log.info("전체 감자 판매 개수 : " + orderDAO.findByItemNumber("감자").stream().map(order -> order.getItemCount()).reduce(0, (count1, count2) -> count1 + count2));
     }
 
     @Test

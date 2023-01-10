@@ -7,4 +7,4 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Plus10 {;}
+public @interface Plus10 {;} //분리된 횡단 관심사

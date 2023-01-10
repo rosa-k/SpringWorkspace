@@ -1,5 +1,6 @@
 package com.example.app.controller;
 
+import com.example.app.aspect.annotation.LogStatus;
 import com.example.app.domain.vo.BoardVO;
 import com.example.app.domain.vo.Criteria;
 import com.example.app.domain.vo.PageDTO;
@@ -26,6 +27,7 @@ public class BoardController {
     }*/
 
     //    게시글 목록
+    @LogStatus
     @GetMapping("/list")
     public void list(Criteria criteria, Model model){
         PageDTO pageDTO = new PageDTO();
@@ -38,11 +40,13 @@ public class BoardController {
     }
 
 //    게시글 등록
+    @LogStatus
     @GetMapping("/write")
     public void write(Criteria criteria, Model model){
         model.addAttribute("board", new BoardVO());
     }
 
+    @LogStatus
     @PostMapping("/write")
     public RedirectView write(BoardVO boardVO, RedirectAttributes redirectAttributes){
         boardService.add(boardVO);
@@ -52,7 +56,8 @@ public class BoardController {
 
 //    게시글 수정
 //    게시글 상세보기
-    @GetMapping(value = {"/read", "update"})
+    @LogStatus
+    @GetMapping(value = {"read", "update"})
     public void read(Long boardNumber, Criteria criteria, Model model){
         model.addAttribute("board", boardService.find(boardNumber));
     }
@@ -61,6 +66,7 @@ public class BoardController {
     public RedirectView update(BoardVO boardVO, Criteria criteria, RedirectAttributes redirectAttributes){
         boardService.update(boardVO);
 //        알아서 쿼리스트링을 경로 뒤에 만들어준다(컨트롤러에서 사용할때)
+//        다른 컨트롤러로 이동할 때에는 쿼리스트링으로 전달해야 한다.
         redirectAttributes.addAttribute("boardNumber", boardVO.getBoardNumber());
         redirectAttributes.addAttribute("page", criteria.getPage());
         redirectAttributes.addAttribute("amount", criteria.getAmount());
@@ -72,6 +78,7 @@ public class BoardController {
     }
 
 //    게시글 삭제
+    @LogStatus
     @PostMapping("/delete")
     public RedirectView delete(Long boardNumber){
         boardService.delete(boardNumber);
